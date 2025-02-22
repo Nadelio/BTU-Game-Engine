@@ -7,9 +7,7 @@ public class GameObject extends JComponent {
 
     private String[] tags = new String[] {"Untagged"};
     private GameObject[] children;
-
     private Script[] scripts;
-
     private Component[] components;
 
     public GameObject(Vector3 position, double rotation, Vector3 scale) {
@@ -92,5 +90,37 @@ public class GameObject extends JComponent {
 
     public boolean hasScript(Script script) {
         return Utils.contains(scripts, script);
+    }
+
+    public void addComponent(Component component) {
+        if(components == null) {
+            components = new Component[] {component};
+            return;
+        }
+
+        Component[] newComponents = new Component[components.length + 1];
+        for (int i = 0; i < components.length; i++) {
+            newComponents[i] = components[i];
+        }
+        newComponents[components.length] = component;
+        components = newComponents;
+    }
+
+    public void removeComponent(Component component) {
+        if(Utils.contains(components, component)) {
+            Component[] newComponents = new Component[components.length - 1];
+            int j = 0;
+            for (int i = 0; i < components.length; i++) {
+                if(components[i] != component) {
+                    newComponents[i] = components[i];
+                    j++;
+                }
+            }
+            components = newComponents;
+        }
+    }
+
+    public boolean hasComponent(Component component) {
+        return Utils.contains(components, component);
     }
 }

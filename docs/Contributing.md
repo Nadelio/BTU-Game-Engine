@@ -5,6 +5,8 @@
 - Hello Window!
   - Windowing config
   - Multi-window Support (?)
+- Scenes
+  - What do we want in scenes?
 - Objects
   - Tags
   - Child Objects

@@ -8,21 +8,22 @@
 - Scenes
   - What do we want in scenes?
 - Objects
-  - Tags
+  - [X] Tags
   - Child Objects
-  - Transform
+  - [X] Transform
     - Position
     - Rotation
     - Scale
-  - Sprite
-    - Animator
-  - Scripts
-  - Colliders
-    - Collider groups
-  - Physics Body
-    - Gravity
-    - Fixed Update
-  - Layering (Z position)
+  - [ ] Scripts
+  - [ ] Components
+    - Sprite
+      - Animator
+    - Colliders
+      - Collider groups
+    - Physics Body
+      - Gravity
+      - Fixed Update
+  - [X] Layering (Z position)
 - Input System
   - Actions
     - Keybinds

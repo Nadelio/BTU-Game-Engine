@@ -16,9 +16,16 @@ public class Utils {
         return false;
     }
 
-    public static boolean contains(Component[] arr, Component target) {
-        for (Component c : arr) {
+    public static boolean contains(GameComponent[] arr, GameComponent target) {
+        for (GameComponent c : arr) {
             if (c.equals(target)) { return true; }
+        }
+        return false;
+    }
+
+    public static boolean contains(GameObject[] arr, GameObject target) {
+        for (GameObject g : arr) {
+            if (g.equals(target)) { return true; }
         }
         return false;
     }

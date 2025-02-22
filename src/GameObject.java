@@ -1,33 +1,95 @@
 import javax.swing.JComponent;
 
 public class GameObject extends JComponent {
-    private Vector3 position;
-    private double rotation;
-    private Vector3 scale;
-
+    private String name = "UnnamedGameObject";
+    private Transform transform;
     private String[] tags = new String[] {"Untagged"};
     private GameObject[] children;
     private Script[] scripts;
-    private Component[] components;
+    private GameComponent[] components;
 
-    public GameObject(Vector3 position, double rotation, Vector3 scale) {
-        this.position = position;
-        this.rotation = rotation;
-        this.scale = scale;
+    public GameObject(String name, Transform transform, String[] tags, GameObject[] children, Script[] scripts, GameComponent[] components) {
+        this.name = name;
+        this.transform = transform;
+        this.tags = tags;
+        this.children = children;
+        this.scripts = scripts;
+        this.components = components;
     }
 
-    public GameObject(Vector3 position, double rotation) {
-        this(position, rotation, new Vector3(1, 1, 1));
+    public GameObject(String name, Transform transform, String[] tags, GameObject[] children) {
+        this.name = name;
+        this.transform = transform;
+        this.tags = tags;
+        this.children = children;
     }
 
-    public GameObject(Vector3 position) {
-        this(position, 0, new Vector3(1, 1, 1));
+    public GameObject(String name, Transform transform, String[] tags, Script[] scripts) {
+        this.name = name;
+        this.transform = transform;
+        this.tags = tags;
+        this.scripts = scripts;
     }
 
-    public GameObject() {
-        this(Vector3.zero(), 0, Vector3.one());
+    public GameObject(String name, Transform transform, String[] tags, GameComponent[] components) {
+        this.name = name;
+        this.transform = transform;
+        this.tags = tags;
+        this.components = components;
     }
 
+    public GameObject(String name, Transform transform, String tag, GameObject[] children, Script[] scripts, GameComponent[] components) {
+        this.name = name;
+        this.transform = transform;
+        addTag(tag);
+        this.children = children;
+        this.scripts = scripts;
+        this.components = components;
+    }
+
+    public GameObject(String name, Transform transform, String tag, GameObject[] children) {
+        this.name = name;
+        this.transform = transform;
+        addTag(tag);
+        this.children = children;
+    }
+    
+    public GameObject(String name, Transform transform, String tag, Script[] scripts) {
+        this.name = name;
+        this.transform = transform;
+        addTag(tag);
+        this.scripts = scripts;
+    }
+
+    public GameObject(String name, Transform transform, String tag, GameComponent[] components) {
+        this.name = name;
+        this.transform = transform;
+        addTag(tag);
+        this.components = components;
+    }
+    
+    public GameObject(String name, Transform transform, String[] tags){
+        this.name = name;
+        this.transform = transform;
+        this.tags = tags;
+    }
+
+    public GameObject(String name, Transform transform, String tag) {
+        this.name = name;
+        this.transform = transform;
+        addTag(tag);
+    }
+    
+    public GameObject(String name, Transform transform) {
+        this.name = name;
+        this.transform = transform;
+    }
+    
+    public GameObject(String name) {
+        this.name = name;
+        this.transform = new Transform();
+    }
+    
     public void addTag(String tag) {
         if(Utils.contains(this.tags, "Untagged")) {
             tags = new String[] {tag};
@@ -92,13 +154,13 @@ public class GameObject extends JComponent {
         return Utils.contains(scripts, script);
     }
 
-    public void addComponent(Component component) {
+    public void addComponent(GameComponent component) {
         if(components == null) {
-            components = new Component[] {component};
+            components = new GameComponent[] {component};
             return;
         }
 
-        Component[] newComponents = new Component[components.length + 1];
+        GameComponent[] newComponents = new GameComponent[components.length + 1];
         for (int i = 0; i < components.length; i++) {
             newComponents[i] = components[i];
         }
@@ -106,9 +168,9 @@ public class GameObject extends JComponent {
         components = newComponents;
     }
 
-    public void removeComponent(Component component) {
+    public void removeComponent(GameComponent component) {
         if(Utils.contains(components, component)) {
-            Component[] newComponents = new Component[components.length - 1];
+            GameComponent[] newComponents = new GameComponent[components.length - 1];
             int j = 0;
             for (int i = 0; i < components.length; i++) {
                 if(components[i] != component) {
@@ -120,7 +182,48 @@ public class GameObject extends JComponent {
         }
     }
 
-    public boolean hasComponent(Component component) {
+    public boolean hasComponent(GameComponent component) {
         return Utils.contains(components, component);
     }
+
+    public void addChild(GameObject child) {
+        if(children == null) {
+            children = new GameObject[] {child};
+            return;
+        }
+
+        GameObject[] newChildren = new GameObject[children.length + 1];
+        for (int i = 0; i < children.length; i++) {
+            newChildren[i] = children[i];
+        }
+        newChildren[children.length] = child;
+        children = newChildren;
+    }
+
+    public void removeChild(GameObject child) {
+        if(Utils.contains(children, child)) {
+            GameObject[] newChildren = new GameObject[children.length - 1];
+            int j = 0;
+            for (int i = 0; i < children.length; i++) {
+                if(children[i] != child) {
+                    newChildren[i] = children[i];
+                    j++;
+                }
+            }
+            children = newChildren;
+        }
+    }
+
+    public boolean hasChild(GameObject child) {
+        return Utils.contains(children, child);
+    }
+
+    public void changeName(String name) { this.name = name; }
+
+    public String getName() { return this.name; }
+    public Transform getTransform() { return this.transform; }
+    public String[] getTags() { return this.tags; }
+    public GameObject[] getChildren() { return this.children; }
+    public Script[] getScripts() { return this.scripts; }
+    public GameComponent[] getGameComponents() { return this.components; }
 }

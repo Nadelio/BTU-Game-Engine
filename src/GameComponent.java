@@ -1,7 +1,11 @@
 public abstract class GameComponent implements Runnable {
     private final int UID;
 
-    public GameComponent() { this.UID = Utils.componentUID(); }
+    public GameComponent() {
+        this.UID = Utils.componentUID();
+        ComponentUpdater.register(this);
+        FixedUpdater.register(this);
+    }
 
     public abstract void start();
     public abstract void update();

@@ -2,7 +2,10 @@ public abstract class Script {
 
     private final int UID;
 
-    public Script(){this.UID = Utils.scriptUID();}
+    public Script(){
+        this.UID = Utils.scriptUID();
+        ScriptUpdater.register(this);
+    }
 
     abstract public void start();
     abstract public void update();

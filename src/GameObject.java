@@ -8,86 +8,98 @@ public class GameObject extends JComponent {
     private Script[] scripts;
     private GameComponent[] components;
 
-    public GameObject(String name, Transform transform, String[] tags, GameObject[] children, Script[] scripts, GameComponent[] components) {
+    public GameObject(GameScene scene, String name, Transform transform, String[] tags, GameObject[] children, Script[] scripts, GameComponent[] components) {
         this.name = name;
         this.transform = transform;
         this.tags = tags;
         this.children = children;
         this.scripts = scripts;
         this.components = components;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String[] tags, GameObject[] children) {
+    public GameObject(GameScene scene, String name, Transform transform, String[] tags, GameObject[] children) {
         this.name = name;
         this.transform = transform;
         this.tags = tags;
         this.children = children;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String[] tags, Script[] scripts) {
+    public GameObject(GameScene scene, String name, Transform transform, String[] tags, Script[] scripts) {
         this.name = name;
         this.transform = transform;
         this.tags = tags;
         this.scripts = scripts;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String[] tags, GameComponent[] components) {
+    public GameObject(GameScene scene, String name, Transform transform, String[] tags, GameComponent[] components) {
         this.name = name;
         this.transform = transform;
         this.tags = tags;
         this.components = components;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String tag, GameObject[] children, Script[] scripts, GameComponent[] components) {
+    public GameObject(GameScene scene, String name, Transform transform, String tag, GameObject[] children, Script[] scripts, GameComponent[] components) {
         this.name = name;
         this.transform = transform;
         addTag(tag);
         this.children = children;
         this.scripts = scripts;
         this.components = components;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String tag, GameObject[] children) {
+    public GameObject(GameScene scene, String name, Transform transform, String tag, GameObject[] children) {
         this.name = name;
         this.transform = transform;
         addTag(tag);
         this.children = children;
+        scene.register(this);
     }
     
-    public GameObject(String name, Transform transform, String tag, Script[] scripts) {
+    public GameObject(GameScene scene, String name, Transform transform, String tag, Script[] scripts) {
         this.name = name;
         this.transform = transform;
         addTag(tag);
         this.scripts = scripts;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String tag, GameComponent[] components) {
+    public GameObject(GameScene scene, String name, Transform transform, String tag, GameComponent[] components) {
         this.name = name;
         this.transform = transform;
         addTag(tag);
         this.components = components;
+        scene.register(this);
     }
     
-    public GameObject(String name, Transform transform, String[] tags){
+    public GameObject(GameScene scene, String name, Transform transform, String[] tags){
         this.name = name;
         this.transform = transform;
         this.tags = tags;
+        scene.register(this);
     }
 
-    public GameObject(String name, Transform transform, String tag) {
+    public GameObject(GameScene scene, String name, Transform transform, String tag) {
         this.name = name;
         this.transform = transform;
         addTag(tag);
+        scene.register(this);
     }
     
-    public GameObject(String name, Transform transform) {
+    public GameObject(GameScene scene, String name, Transform transform) {
         this.name = name;
         this.transform = transform;
+        scene.register(this);
     }
     
-    public GameObject(String name) {
+    public GameObject(GameScene scene, String name) {
         this.name = name;
         this.transform = new Transform();
+        scene.register(this);
     }
     
     public void addTag(String tag) {
@@ -226,4 +238,26 @@ public class GameObject extends JComponent {
     public GameObject[] getChildren() { return this.children; }
     public Script[] getScripts() { return this.scripts; }
     public GameComponent[] getGameComponents() { return this.components; }
+
+    public void destroy(){
+        for(GameObject child : children) {
+            child.destroy();
+        }
+
+        for(Script script : scripts) {
+            ScriptUpdater.unregister(script);
+        }
+
+        for(GameComponent component : components) {
+            ComponentUpdater.unregister(component);
+            FixedUpdater.unregister(component);
+        }
+
+        this.name = null;
+        this.transform = null;
+        this.tags = null;
+        this.children = null;
+        this.scripts = null;
+        this.components = null;
+    }
 }

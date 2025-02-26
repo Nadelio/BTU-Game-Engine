@@ -9,6 +9,10 @@ public class ScriptUpdater implements Runnable {
         scripts.add(script);
     }
 
+    public static void unregister(Script script) {
+        scripts.remove(script);
+    }
+
     @Override
     public void run() {
         for (Script script : scripts) {

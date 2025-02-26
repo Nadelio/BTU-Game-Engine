@@ -9,6 +9,10 @@ public class ComponentUpdater implements Runnable {
         components.add(component);
     }
 
+    public static void unregister(GameComponent component) {
+        components.remove(component);
+    }
+
     @Override
     public void run() {
         for (GameComponent component : components) {

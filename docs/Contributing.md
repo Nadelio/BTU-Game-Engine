@@ -3,17 +3,17 @@
 
 # Todo:
 - Hello Window!
-  - Windowing config
+  - [ ] Windowing config
   - Multi-window Support (?)
 - Scenes
   - What do we want in scenes?
 - Objects
   - [X] Tags
-  - Child Objects
+  - [X] Child Objects
   - [X] Transform
-    - Position
-    - Rotation
-    - Scale
+    - [X] Position
+    - [X] Rotation
+    - [X] Scale
   - [ ] Scripts
   - [ ] Components
     - Sprite

@@ -7,9 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    // use this to initialize the rendering system,
-    // add all the threads,
 
+    // Game Engine Architecture
     // Game {
     //  Window(s)
     //  GameScripts
@@ -24,6 +23,8 @@ public class Main {
     // }
 
 
+    // use this to initialize the rendering system,
+    // add all the threads,
     // add all the GameObjects,
     // and their components, scripts, tags, and children
     // and start the game loop from the initial scene defined in the config file
@@ -35,7 +36,7 @@ public class Main {
     // fixed update -> ScheduledExecutorService
 
     public static void main(String [] args){ // [window config file path, initial scene index]
-        
+
         GameRenderer renderer = new GameRenderer(); 
 
         ComponentUpdater componentUpdater = new ComponentUpdater();
